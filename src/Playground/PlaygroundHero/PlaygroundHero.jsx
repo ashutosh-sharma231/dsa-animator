@@ -1,0 +1,42 @@
+import "./PlaygroundHero.css";
+import AlgorithmSearch from "../shared/AlgorithmSearch.jsx";
+import Sorting from "../Algorithms/Sorting/Sorting.jsx";
+import Searching from "../Algorithms/Searching/Searching.jsx";
+import LinkedList from "../Structures/LinkedList/LinkedList.jsx";
+import Stack from "../Structures/Stack/Stack.jsx";
+import Queue from "../Structures/Queue/Queue.jsx";
+import Recursion from "../Recursion/Recursion.jsx";
+
+const Playground = () => {
+  return (
+    <section className="playground">
+      <div className="playground-content">
+        <p className="playground-eyebrow">
+          THE PLAYGROUND
+        </p>
+
+        <h1 className="playground-title">
+          Every structure. Every
+          <br />
+          algorithm. Rendered.
+        </h1>
+
+        <p className="playground-description">
+          Real code, real execution — step forward, step back, or press play.
+          Pick one below.
+        </p>
+
+        <AlgorithmSearch />
+
+        <Sorting />
+        <Searching />
+        <LinkedList />
+        <Stack />
+        <Queue />
+        <Recursion />
+      </div>
+    </section>
+  );
+};
+
+export default Playground;

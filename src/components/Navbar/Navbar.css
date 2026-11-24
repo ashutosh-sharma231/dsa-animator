@@ -1,0 +1,316 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 85px;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  background: transparent;
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(8, 8, 8, 0.45);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  isolation: isolate;
+}
+
+.navbar.scrolled::after {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.navbar-container {
+  width: min(1370px, 90%);
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  color: #f3f2ed;
+  font-size: 1.1rem;
+  font-family: "Space Grotesk";
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-decoration: none;
+}
+
+.logo span {
+  color: #ff6b3d;
+}
+
+nav {
+  display: flex;
+  gap: 3rem;
+}
+
+nav a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-family: "Satoshi";
+  font-size: 1rem;
+  font-weight: 500;
+  transition:
+    color .25s,
+    transform 0.3s ease;
+  position: relative;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.25rem;
+  height: 1px;
+  width: 100%;
+  background: #ff6b3d;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+nav a:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+nav a:hover::after {
+  transform: scaleX(1);
+}
+
+.launch-btn {
+  position: relative;
+  overflow: hidden;
+  padding: .8rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .15);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  transition: color .3s ease;
+}
+
+.launch-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: inherit;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform .3s ease;
+  z-index: -1;
+}
+
+.launch-btn:hover {
+  color: black;
+}
+
+.launch-btn:hover::after {
+  transform: scaleY(1);
+}
+
+
+/* ===========================
+   Mobile/Desktop Launch Button
+   =========================== */
+
+.desktop-btn {
+  display: inline-flex;
+}
+
+.mobile-launch-btn {
+  display: none;
+}
+
+/* ===========================
+   Close Icon
+   =========================== */
+
+.nav-toggle {
+  position: relative;
+}
+
+
+/* ===========================
+   Mobile
+   =========================== */
+
+@media (max-width: 860px) {
+
+  .desktop-btn {
+    display: none;
+  }
+
+  .mobile-launch-btn {
+    display: inline-flex;
+    margin-top: 0.5rem;
+  }
+
+  .navbar.scrolled {
+    background: rgba(8, 8, 8, 0.45);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+  }
+
+}
+
+/* ============================================================
+   RESPONSIVE — everything above is untouched at default (desktop)
+   width. Hamburger + mobile nav below only activate under 860px.
+   Pure CSS, no JS: driven by a hidden checkbox (the "checkbox
+   hack"). See the HTML markup note below for the required structure.
+   ============================================================ */
+
+/* the checkbox itself is never visible — it's just toggle state */
+.nav-toggle-checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* the <label for="nav-toggle"> IS the visible hamburger button */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1201;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #f3f2ed;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Tighten the desktop nav slightly before it collapses to hamburger */
+@media (max-width: 1024px) {
+  nav {
+    gap: 1.75rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .navbar {
+    height: 70px;
+  }
+
+  .navbar-container {
+    width: 92%;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .launch-btn {
+    display: none;
+  }
+
+  /* nav becomes a full-screen overlay, closed by default */
+  nav {
+    position: fixed;
+    inset: 0;
+    height: 100dvh;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.2rem;
+    background: rgba(8, 8, 8, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-12px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    z-index: 1100;
+  }
+
+  nav a {
+    font-size: 1.5rem;
+  }
+
+  nav a::after {
+    bottom: -0.35rem;
+  }
+
+  /* the launch button reappears inside the open overlay */
+  nav .launch-btn {
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+
+  /* ---- checked state drives everything below ---- */
+  .nav-toggle-checkbox:checked~nav {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav-toggle-checkbox:checked~.nav-toggle span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-toggle-checkbox:checked~.nav-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle-checkbox:checked~.nav-toggle span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* lock background scroll while open — :has() is supported in all
+     current browsers (Chrome/Edge 105+, Safari 15.4+, Firefox 121+) */
+  body:has(.nav-toggle-checkbox:checked) {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .logo {
+    font-size: .88rem;
+    letter-spacing: .14em;
+  }
+
+}
+
+@media (max-width: 380px) {
+
+  .logo {
+    font-size: .8rem;
+    letter-spacing: .12em;
+  }
+
+  nav a {
+    font-size: 1.3rem;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  nav,
+  .nav-toggle span {
+    transition: none;
+  }
+}
